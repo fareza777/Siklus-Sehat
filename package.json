@@ -28,6 +28,7 @@
   "devDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.61.0",
     "@types/react": "~18.2.79",
+    "metro": "^0.80.12",
     "typescript": "~5.3.3",
     "vitest": "^1.6.1"
   }
