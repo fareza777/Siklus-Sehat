@@ -26,6 +26,7 @@
     "react-native-svg": "15.2.0"
   },
   "devDependencies": {
+    "@react-native/assets-registry": "^0.74.87",
     "@rollup/rollup-win32-x64-msvc": "^4.61.0",
     "@types/react": "~18.2.79",
     "metro": "^0.80.12",
