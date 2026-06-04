@@ -9,7 +9,7 @@ import { useAppData } from "@/context/AppContext";
 import { CycleDay, Symptom } from "@/models";
 import { todayISO } from "@/utils/date";
 import { getCyclePrediction } from "@/utils/phase";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 
 const symptoms: { label: string; value: Symptom }[] = [
   ["Mood", "mood_swing"], ["Kram", "kram"], ["Payudara", "payudara_sakit"], ["Fatigue", "fatigue"], ["Craving", "craving"], ["Sleep", "sleep"],
@@ -69,7 +69,7 @@ export default function CycleCalendar() {
           <Text key={item.value} onPress={() => toggleSymptom(item.value)} style={[styles.chip, selected.includes(item.value) && styles.active]}>{item.label}</Text>
         ))}
       </View>
-      <AppButton title={saving ? "Menyimpan..." : "Simpan Log"} onPress={save} disabled={saving} />
+      <AppButton title={saving ? "Menyimpan..." : "Simpan Log"} icon="save" onPress={save} disabled={saving} />
       <Text style={styles.heading}>History & Insight</Text>
       <SymptomChart days={cycleDays} />
       <Text style={styles.note}>{prediction.assumptions.join(" ")}</Text>
@@ -80,7 +80,7 @@ export default function CycleCalendar() {
 const styles = StyleSheet.create({
   heading: { fontSize: 17, fontWeight: "800", color: colors.ink },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  chip: { paddingHorizontal: 11, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface, color: colors.ink, overflow: "hidden", fontSize: 13 },
+  chip: { paddingHorizontal: 11, paddingVertical: 8, borderRadius: radii.pill, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface, color: colors.ink, overflow: "hidden", fontSize: 13, ...shadows.card },
   active: { backgroundColor: colors.berry, color: colors.surface, borderColor: colors.berry },
   legend: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   legendText: { color: colors.muted, fontSize: 12 },

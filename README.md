@@ -27,6 +27,17 @@ eas build -p android --profile production
 
 Output production memakai Android App Bundle (`.aab`) sesuai kebutuhan Play Store. MVP ini tidak memakai backend eksternal; scanner foto memakai mock AI call sampai API key Gemini Vision/Claude disambungkan.
 
+## OpenRouter AI
+
+Buat `.env.local` untuk preview lokal:
+
+```bash
+EXPO_PUBLIC_OPENROUTER_API_KEY=isi_key_openrouter
+EXPO_PUBLIC_OPENROUTER_MODEL=xiaomi/mimo-v2.5
+```
+
+Catatan Play Store: key dengan prefix `EXPO_PUBLIC_` akan ikut terbaca di bundle aplikasi. Untuk production, pindahkan call OpenRouter ke backend/proxy aman agar API key tidak terekspos di APK/AAB.
+
 ## Acceptance Criteria
 
 - Setelah onboarding, user melihat dashboard dengan fase siklus dari tanggal menstruasi terakhir.

@@ -1,11 +1,12 @@
 import { type ComponentProps, useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { AppButton } from "@/components/AppButton";
 import { Screen } from "@/components/Screen";
 import { Goal, UserProfile } from "@/models";
 import { useAppData } from "@/context/AppContext";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 import { todayISO } from "@/utils/date";
 
 const goals: { label: string; value: Goal }[] = [
@@ -67,6 +68,10 @@ export default function OnboardingScreen() {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <Screen title="SiklusFit" subtitle="Pahami siklusmu, makan yang tepat, rasakan bedanya.">
         <View style={styles.card}>
+          <View style={styles.badge}>
+            <Ionicons name="fitness" size={18} color={colors.berry} />
+            <Text style={styles.badgeText}>Mobile MVP untuk tracking siklus + nutrisi adaptif</Text>
+          </View>
           <View style={styles.row}>
             <Field label="Usia" value={age} onChangeText={setAge} keyboardType="numeric" />
             <Field label="Tinggi cm" value={heightCm} onChangeText={setHeightCm} keyboardType="numeric" />
@@ -87,7 +92,7 @@ export default function OnboardingScreen() {
           <Field label="Preferensi makanan" value={foodPreferences} onChangeText={setFoodPreferences} />
           <Field label="Alergi" value={allergies} onChangeText={setAllergies} placeholder="contoh: seafood, kacang" />
         </View>
-        <AppButton title={saving ? "Menyimpan..." : "Mulai Tracking"} onPress={submit} disabled={saving} />
+        <AppButton title={saving ? "Menyimpan..." : "Mulai Tracking"} icon="arrow-forward-circle" onPress={submit} disabled={saving} />
       </Screen>
     </KeyboardAvoidingView>
   );
@@ -103,12 +108,14 @@ function Field({ label, ...props }: { label: string } & ComponentProps<typeof Te
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderRadius: 8, borderWidth: 1, borderColor: colors.line, padding: 14, gap: 12 },
+  card: { backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.line, padding: 14, gap: 12, ...shadows.card },
+  badge: { flexDirection: "row", alignItems: "center", gap: 8, padding: 10, borderRadius: radii.md, backgroundColor: colors.blush },
+  badgeText: { flex: 1, color: colors.berryDark, fontWeight: "800", fontSize: 12, lineHeight: 17 },
   row: { flexDirection: "row", gap: 8 },
   field: { flex: 1, gap: 6 },
   label: { fontSize: 12, fontWeight: "800", color: colors.muted },
-  input: { minHeight: 44, borderRadius: 8, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: "#FFFCFA" },
+  input: { minHeight: 46, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: "#FFFCFA" },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  chip: { paddingHorizontal: 12, paddingVertical: 9, borderRadius: 8, borderWidth: 1, borderColor: colors.line, color: colors.ink, overflow: "hidden" },
+  chip: { paddingHorizontal: 12, paddingVertical: 9, borderRadius: radii.pill, borderWidth: 1, borderColor: colors.line, color: colors.ink, overflow: "hidden" },
   chipActive: { backgroundColor: colors.berry, color: colors.surface, borderColor: colors.berry }
 });

@@ -6,7 +6,7 @@ import { StateBlock } from "@/components/StateBlock";
 import { useAppData } from "@/context/AppContext";
 import { chatReply } from "@/services/mockAI";
 import { getCyclePrediction } from "@/utils/phase";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 
 type Message = { role: "user" | "ai"; text: string };
 
@@ -54,17 +54,17 @@ export default function AIChat() {
         {error ? <StateBlock type="error" message={error} /> : null}
       </View>
       <TextInput value={input} onChangeText={setInput} style={styles.input} multiline placeholder="Tulis kebutuhanmu..." placeholderTextColor={colors.muted} />
-      <AppButton title="Kirim" onPress={send} disabled={loading} />
+      <AppButton title="Kirim" icon="send" onPress={send} disabled={loading} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   thread: { gap: 10 },
-  bubble: { padding: 12, borderRadius: 8, maxWidth: "92%" },
+  bubble: { padding: 12, borderRadius: radii.md, maxWidth: "92%", ...shadows.card },
   user: { alignSelf: "flex-end", backgroundColor: colors.berry },
   ai: { alignSelf: "flex-start", backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line },
   userText: { color: colors.surface, lineHeight: 20 },
   aiText: { color: colors.ink, lineHeight: 20 },
-  input: { minHeight: 78, textAlignVertical: "top", borderRadius: 8, borderWidth: 1, borderColor: colors.line, padding: 12, color: colors.ink, backgroundColor: colors.surface }
+  input: { minHeight: 78, textAlignVertical: "top", borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, padding: 12, color: colors.ink, backgroundColor: colors.surface }
 });

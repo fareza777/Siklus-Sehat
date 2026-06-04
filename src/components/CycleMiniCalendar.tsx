@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { CyclePrediction } from "@/utils/phase";
 import { addDays, todayISO } from "@/utils/date";
-import { colors } from "@/theme";
+import { colors, radii } from "@/theme";
 
 export function CycleMiniCalendar({ prediction }: { prediction: CyclePrediction }) {
   const start = todayISO();
@@ -23,7 +23,7 @@ export function CycleMiniCalendar({ prediction }: { prediction: CyclePrediction 
 
 const styles = StyleSheet.create({
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
-  cell: { width: "13.2%", minHeight: 48, borderRadius: 8, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, alignItems: "center", justifyContent: "center" },
+  cell: { width: "13.2%", minHeight: 48, borderRadius: radii.md, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, alignItems: "center", justifyContent: "center" },
   date: { fontWeight: "700", color: colors.ink },
   marker: { marginTop: 2, fontSize: 11, color: colors.muted, fontWeight: "800" },
   period: { backgroundColor: "#FBE7EF", borderColor: colors.berry },

@@ -7,7 +7,7 @@ import { useAppData } from "@/context/AppContext";
 import { generateMealPlan } from "@/services/mockAI";
 import { getCyclePrediction } from "@/utils/phase";
 import { nutritionForPhase } from "@/utils/nutrition";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 import { MealPlan as MealPlanType } from "@/models";
 
 export default function MealPlanner() {
@@ -43,7 +43,7 @@ export default function MealPlanner() {
       <View style={styles.card}>
         <Text style={styles.heading}>Inventory rumah</Text>
         <TextInput value={inventory} onChangeText={setInventory} style={styles.input} placeholderTextColor={colors.muted} />
-        <AppButton title={loading ? "Menyusun..." : "Generate Menu Hari Ini"} onPress={generate} disabled={loading} />
+        <AppButton title={loading ? "Menyusun..." : "Generate Menu Hari Ini"} icon="sparkles" onPress={generate} disabled={loading} />
       </View>
       {loading ? <StateBlock type="loading" message="Menyusun resep 5-15 menit sesuai fase..." /> : null}
       {error ? <StateBlock type="error" message={error} /> : null}
@@ -67,10 +67,10 @@ export default function MealPlanner() {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: 10, padding: 12, backgroundColor: colors.surface, borderRadius: 8, borderWidth: 1, borderColor: colors.line },
+  card: { gap: 10, padding: 12, backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.line, ...shadows.card },
   heading: { fontSize: 17, fontWeight: "800", color: colors.ink },
-  input: { minHeight: 44, borderRadius: 8, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: colors.surface },
-  meal: { padding: 14, borderRadius: 8, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, gap: 4 },
+  input: { minHeight: 46, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: colors.surface },
+  meal: { padding: 14, borderRadius: radii.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, gap: 4, ...shadows.card },
   time: { color: colors.berry, fontWeight: "900", fontSize: 12 },
   title: { color: colors.ink, fontWeight: "900", fontSize: 18 },
   copy: { color: colors.muted, lineHeight: 20 }

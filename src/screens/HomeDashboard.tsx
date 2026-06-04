@@ -1,5 +1,6 @@
 import { Link, router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { AppButton } from "@/components/AppButton";
 import { FoodCard } from "@/components/FoodCard";
 import { PhaseIndicator } from "@/components/PhaseIndicator";
@@ -8,7 +9,7 @@ import { StateBlock } from "@/components/StateBlock";
 import { useAppData } from "@/context/AppContext";
 import { getCyclePrediction } from "@/utils/phase";
 import { nutritionForPhase } from "@/utils/nutrition";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 import { todayISO } from "@/utils/date";
 
 export default function HomeDashboard() {
@@ -27,7 +28,7 @@ export default function HomeDashboard() {
     <Screen title="SiklusFit" subtitle="Dashboard mobile harian">
       <PhaseIndicator phase={prediction.phase} cycleDay={prediction.cycleDay} />
       <View style={styles.calorieCard}>
-        <View style={styles.ring}>
+        <View style={[styles.ring, { borderColor: pct > 0.8 ? colors.leaf : colors.berry }]}>
           <Text style={styles.big}>{Math.round(pct * 100)}%</Text>
           <Text style={styles.small}>{calories}/{target.calories} kkal</Text>
         </View>
@@ -38,13 +39,13 @@ export default function HomeDashboard() {
         </View>
       </View>
       <View style={styles.actions}>
-        <AppButton title="Log Gejala" onPress={() => router.push("/cycle")} />
-        <AppButton title="Foto Makanan" onPress={() => router.push("/scanner")} variant="secondary" />
+        <AppButton title="Log Gejala" icon="pulse" onPress={() => router.push("/cycle")} />
+        <AppButton title="Foto Makanan" icon="camera" onPress={() => router.push("/scanner")} variant="secondary" />
       </View>
       <View style={styles.nav}>
-        <Link href="/planner" style={styles.link}>Meal Planner</Link>
-        <Link href="/chat" style={styles.link}>AI Chat</Link>
-        <Link href="/cycle" style={styles.link}>Kalender</Link>
+        <QuickLink href="/planner" icon="nutrition" label="Meal" />
+        <QuickLink href="/chat" icon="chatbubble-ellipses" label="AI Chat" />
+        <QuickLink href="/cycle" icon="calendar" label="Kalender" />
       </View>
       <Text style={styles.heading}>Ringkasan hari ini</Text>
       {todaysCycle ? <Text style={styles.copy}>Gejala: {todaysCycle.symptoms.join(", ") || "Tidak ada"} {todaysCycle.spotting ? "- spotting" : ""}</Text> : <StateBlock type="empty" message="Belum ada gejala hari ini." />}
@@ -54,14 +55,27 @@ export default function HomeDashboard() {
   );
 }
 
+function QuickLink({ href, icon, label }: { href: "/planner" | "/chat" | "/cycle"; icon: keyof typeof Ionicons.glyphMap; label: string }) {
+  return (
+    <Link href={href} style={styles.link}>
+      <View style={styles.linkInner}>
+        <Ionicons name={icon} size={18} color={colors.berry} />
+        <Text style={styles.linkText}>{label}</Text>
+      </View>
+    </Link>
+  );
+}
+
 const styles = StyleSheet.create({
-  calorieCard: { flexDirection: "row", gap: 14, alignItems: "center", backgroundColor: colors.surface, borderRadius: 8, borderWidth: 1, borderColor: colors.line, padding: 14 },
-  ring: { width: 104, height: 104, borderRadius: 52, borderWidth: 10, borderColor: colors.berry, alignItems: "center", justifyContent: "center" },
+  calorieCard: { flexDirection: "row", gap: 14, alignItems: "center", backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.line, padding: 15, ...shadows.card },
+  ring: { width: 108, height: 108, borderRadius: 54, borderWidth: 10, alignItems: "center", justifyContent: "center", backgroundColor: colors.surfaceSoft },
   big: { fontSize: 24, fontWeight: "900", color: colors.ink },
   small: { fontSize: 11, color: colors.muted, marginTop: 2 },
   heading: { fontSize: 17, fontWeight: "800", color: colors.ink },
   copy: { color: colors.muted, lineHeight: 20, marginTop: 4 },
   actions: { flexDirection: "row", gap: 10 },
   nav: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  link: { color: colors.berry, fontWeight: "800", padding: 8, backgroundColor: colors.surface, borderRadius: 8, overflow: "hidden" }
+  link: { flexGrow: 1, minWidth: "30%", backgroundColor: colors.surface, borderRadius: radii.md, overflow: "hidden", borderWidth: 1, borderColor: colors.line },
+  linkInner: { minHeight: 54, alignItems: "center", justifyContent: "center", gap: 4 },
+  linkText: { color: colors.ink, fontWeight: "800", fontSize: 12 }
 });

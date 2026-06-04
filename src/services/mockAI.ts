@@ -2,6 +2,7 @@ import { FoodEntry, Meal, MealPlan, Phase, UserProfile } from "@/models";
 import { foodDatabase, foodsForPhase } from "@/data/foodDatabase";
 import { nutritionForPhase } from "@/utils/nutrition";
 import { todayISO } from "@/utils/date";
+import { analyzeFoodWithOpenRouter, chatWithOpenRouter, generateMealPlanWithOpenRouter, isOpenRouterConfigured } from "@/services/openRouterAI";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -19,6 +20,13 @@ function scoreFoodName(name: string, phase: Phase) {
 }
 
 export async function analyzeFoodImage(imageUri: string, phase: Phase, manualHint = ""): Promise<FoodEntry> {
+  if (isOpenRouterConfigured()) {
+    try {
+      return await analyzeFoodWithOpenRouter(imageUri, phase, manualHint);
+    } catch {
+      // Keep the app usable during preview if OpenRouter is unavailable.
+    }
+  }
   await sleep(850);
   const guessed = scoreFoodName(manualHint || imageUri, phase);
   const fit = guessed.phaseTags.includes(phase);
@@ -40,6 +48,13 @@ export async function analyzeFoodImage(imageUri: string, phase: Phase, manualHin
 }
 
 export async function generateMealPlan(profile: UserProfile, phase: Phase, inventory: string[]): Promise<MealPlan> {
+  if (isOpenRouterConfigured()) {
+    try {
+      return await generateMealPlanWithOpenRouter(profile, phase, inventory);
+    } catch {
+      // Keep local MVP behavior stable when the AI provider fails.
+    }
+  }
   await sleep(650);
   const target = nutritionForPhase(profile, phase);
   const vegetarianOnly = profile.foodPreferences.includes("vegetarian");
@@ -76,6 +91,13 @@ export async function generateMealPlan(profile: UserProfile, phase: Phase, inven
 }
 
 export async function chatReply(message: string, phase: Phase, profile: UserProfile): Promise<string> {
+  if (isOpenRouterConfigured()) {
+    try {
+      return await chatWithOpenRouter(message, phase, profile);
+    } catch {
+      // Fallback keeps the mobile preview responsive.
+    }
+  }
   await sleep(450);
   const target = nutritionForPhase(profile, phase);
   const lower = message.toLowerCase();

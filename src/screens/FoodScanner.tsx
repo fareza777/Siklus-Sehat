@@ -8,7 +8,7 @@ import { StateBlock } from "@/components/StateBlock";
 import { useAppData } from "@/context/AppContext";
 import { analyzeFoodImage } from "@/services/mockAI";
 import { getCyclePrediction } from "@/utils/phase";
-import { colors } from "@/theme";
+import { colors, radii, shadows } from "@/theme";
 import { FoodEntry } from "@/models";
 
 export default function FoodScanner() {
@@ -70,8 +70,8 @@ export default function FoodScanner() {
         {imageUri ? <Image source={{ uri: imageUri }} style={styles.image} /> : <StateBlock type="empty" message="Belum ada foto. Pilih foto makanan Indonesia dari galeri." />}
         <TextInput value={hint} onChangeText={setHint} placeholder="Hint opsional: sate ayam, gado-gado..." placeholderTextColor={colors.muted} style={styles.input} />
         <View style={styles.row}>
-          <AppButton title="Pilih Foto" onPress={pickImage} variant="secondary" />
-          <AppButton title={loading ? "Analisis..." : "Analisis"} onPress={analyze} disabled={loading} />
+          <AppButton title="Pilih Foto" icon="image" onPress={pickImage} variant="secondary" />
+          <AppButton title={loading ? "Analisis..." : "Analisis"} icon="sparkles" onPress={analyze} disabled={loading} />
         </View>
       </View>
       {loading ? <StateBlock type="loading" message="Mock Gemini/Claude Vision sedang mengestimasi nutrisi..." /> : null}
@@ -97,7 +97,7 @@ export default function FoodScanner() {
               />
             ))}
           </View>
-          <AppButton title="Simpan Entry" onPress={save} />
+          <AppButton title="Simpan Entry" icon="checkmark-circle" onPress={save} />
         </>
       ) : !loading && !error ? <StateBlock type="empty" message="Hasil analisis akan tampil di sini." /> : null}
     </Screen>
@@ -105,10 +105,10 @@ export default function FoodScanner() {
 }
 
 const styles = StyleSheet.create({
-  panel: { gap: 10, padding: 12, backgroundColor: colors.surface, borderRadius: 8, borderWidth: 1, borderColor: colors.line },
-  image: { width: "100%", aspectRatio: 4 / 3, borderRadius: 8, backgroundColor: colors.line },
+  panel: { gap: 10, padding: 12, backgroundColor: colors.surface, borderRadius: radii.lg, borderWidth: 1, borderColor: colors.line, ...shadows.card },
+  image: { width: "100%", aspectRatio: 4 / 3, borderRadius: radii.md, backgroundColor: colors.line },
   row: { flexDirection: "row", gap: 10 },
-  input: { minHeight: 44, borderRadius: 8, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: colors.surface },
+  input: { minHeight: 46, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 12, color: colors.ink, backgroundColor: colors.surface },
   macroRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   macro: { flexGrow: 1, minWidth: "45%" }
 });
