@@ -66,7 +66,7 @@ export default function OnboardingScreen() {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <Screen title="SiklusFit" subtitle="Pahami siklusmu, makan yang tepat, rasakan bedanya.">
+      <Screen title="Siklus Sehat" subtitle="Pahami siklusmu, makan yang tepat, rasakan bedanya.">
         <View style={styles.card}>
           <View style={styles.badge}>
             <Ionicons name="fitness" size={18} color={colors.berry} />

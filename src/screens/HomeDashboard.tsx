@@ -14,8 +14,8 @@ import { todayISO } from "@/utils/date";
 
 export default function HomeDashboard() {
   const app = useAppData();
-  if (app.error) return <Screen title="SiklusFit"><StateBlock type="error" message={app.error} /></Screen>;
-  if (!app.profile) return <Screen title="SiklusFit"><StateBlock type="empty" message="Profil belum dibuat." /><AppButton title="Isi onboarding" onPress={() => router.replace("/onboarding")} /></Screen>;
+  if (app.error) return <Screen title="Siklus Sehat"><StateBlock type="error" message={app.error} /></Screen>;
+  if (!app.profile) return <Screen title="Siklus Sehat"><StateBlock type="empty" message="Profil belum dibuat." /><AppButton title="Isi onboarding" onPress={() => router.replace("/onboarding")} /></Screen>;
 
   const prediction = getCyclePrediction(app.profile, app.cycleDays);
   const target = nutritionForPhase(app.profile, prediction.phase);
@@ -25,7 +25,7 @@ export default function HomeDashboard() {
   const todaysCycle = app.cycleDays.find((day) => day.date === todayISO());
 
   return (
-    <Screen title="SiklusFit" subtitle="Dashboard mobile harian">
+    <Screen title="Siklus Sehat" subtitle="Dashboard mobile harian">
       <PhaseIndicator phase={prediction.phase} cycleDay={prediction.cycleDay} />
       <View style={styles.calorieCard}>
         <View style={[styles.ring, { borderColor: pct > 0.8 ? colors.leaf : colors.berry }]}>

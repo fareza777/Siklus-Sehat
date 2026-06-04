@@ -41,7 +41,7 @@ async function requestText(messages: ChatMessage[]) {
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
       "HTTP-Referer": "https://github.com/fareza777/Siklus-Sehat",
-      "X-Title": "SiklusFit"
+      "X-Title": "Siklus Sehat"
     },
     body: JSON.stringify({
       model: MODEL,
@@ -144,7 +144,7 @@ export async function chatWithOpenRouter(message: string, phase: Phase, profile:
   return requestText([
     {
       role: "system",
-      content: "Anda adalah coach nutrisi SiklusFit untuk perempuan Indonesia. Jawab ringkas, aman, praktis, tidak menggantikan saran dokter."
+      content: "Anda adalah coach nutrisi Siklus Sehat untuk perempuan Indonesia. Jawab ringkas, aman, praktis, tidak menggantikan saran dokter."
     },
     {
       role: "user",

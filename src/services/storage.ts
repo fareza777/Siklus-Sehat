@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppState, CycleDay, FoodEntry, MealPlan, UserProfile } from "@/models";
 
-const KEY = "siklusfit:v1";
+const KEY = "siklus-sehat:v1";
 
 const emptyState: AppState = {
   profile: null,

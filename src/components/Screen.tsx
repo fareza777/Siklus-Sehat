@@ -9,7 +9,7 @@ export function Screen({ title, subtitle, children }: PropsWithChildren<{ title:
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
           <View style={styles.heroGlow} />
-          <Text style={styles.eyebrow}>SiklusFit</Text>
+          <Text style={styles.eyebrow}>Siklus Sehat</Text>
           <Text style={styles.title}>{title}</Text>
           {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : <Text style={styles.subtitle}>Pahami siklusmu, makan yang tepat.</Text>}
         </View>

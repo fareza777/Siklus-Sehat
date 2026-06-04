@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "SiklusFit",
-    "slug": "siklusfit",
+    "name": "Siklus Sehat",
+    "slug": "siklus-sehat",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "siklusfit",
+    "scheme": "siklussehat",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "com.siklusfit.app",
+      "package": "com.siklussehat.app",
       "blockedPermissions": ["android.permission.RECORD_AUDIO"],
       "adaptiveIcon": {
         "backgroundColor": "#F7F3EF"
@@ -22,7 +22,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "SiklusFit memakai foto makanan untuk estimasi nutrisi lokal."
+          "photosPermission": "Siklus Sehat memakai foto makanan untuk estimasi nutrisi lokal."
         }
       ]
     ],

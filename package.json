@@ -1,5 +1,5 @@
 {
-  "name": "siklusfit",
+  "name": "siklus-sehat",
   "version": "1.0.0",
   "private": true,
   "main": "expo-router/entry",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@rollup/rollup-win32-x64-msvc": "^4.61.0",
     "@types/react": "~19.1.10",
+    "babel-preset-expo": "~54.0.10",
     "metro": "^0.83.1",
     "typescript": "~5.9.2",
     "vitest": "^1.6.1"

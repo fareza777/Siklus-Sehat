@@ -1,4 +1,4 @@
-# SiklusFit
+# Siklus Sehat
 
 Tagline: "Pahami siklusmu, makan yang tepat, rasakan bedanya."
 
